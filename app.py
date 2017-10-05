@@ -1,3 +1,8 @@
+
+# coding: utf-8
+
+# In[3]:
+
 import requests
 import pandas as pd
 import simplejson as json
@@ -23,17 +28,17 @@ def index():
     
 @app.route('/plot', methods=['POST'])
 def plot(): 
-    api_key = 'WtsnqndaKo-ZexTA5Jr2'
-    tools = "pan,wheel_zoom,reset,hover,save"
-    def get_data(ticker):
-        api_url = 'https://www.quandl.com/api/v1/datasets/WIKI/%s.json?api_key=%s' % (ticker, api_key)
-        session = requests.Session()
-        session.mount('http://', requests.adapters.HTTPAdapter(max_retries=3))
-        raw_data = session.get(api_url)
-        data = raw_data.json()
-        df = pd.DataFrame(data['data'], columns=data['column_names'])
-        df['Date'] = pd.to_datetime(df['Date'])
-        return df
+#     api_key = 'WtsnqndaKo-ZexTA5Jr2'
+#     tools = "pan,wheel_zoom,reset,hover,save"
+#     def get_data(ticker):
+#         api_url = 'https://www.quandl.com/api/v1/datasets/WIKI/%s.json?api_key=%s' % (ticker, api_key)
+#         session = requests.Session()
+#         session.mount('http://', requests.adapters.HTTPAdapter(max_retries=3))
+#         raw_data = session.get(api_url)
+#         data = raw_data.json()
+#         df = pd.DataFrame(data['data'], columns=data['column_names'])
+#         df['Date'] = pd.to_datetime(df['Date'])
+#         return df
     
     app.vars['ticker1'] = request.form['ticker1']
     df = get_data(app.vars['ticker1'])
@@ -108,5 +113,4 @@ def plot():
     
 if __name__ == '__main__':
     app.run(port=33507)
-
 
