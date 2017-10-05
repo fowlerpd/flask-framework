@@ -1,4 +1,8 @@
 
+# coding: utf-8
+
+# In[2]:
+
 import requests
 import pandas as pd
 import simplejson as json
@@ -120,8 +124,4 @@ def make_plot():
     
 if __name__ == '__main__':
     app.run(port=33507)
-
-
-
-
 
