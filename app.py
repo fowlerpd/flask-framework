@@ -1,16 +1,13 @@
 import requests
-import pandas as pd
+import pandas
 import simplejson as json
-from bokeh.plotting import figure,show,vplot 
+from bokeh.plotting import figure
 from bokeh.palettes import Spectral11
-from bokeh.embed import components
-from bokeh.layouts import row, column,gridplot
-from bokeh.models import ColumnDataSource, HoverTool, Legend
-from bokeh.models.widgets import PreText, Select
+from bokeh.embed import components 
 from flask import Flask,render_template,request,redirect,session
 
-
 app = Flask(__name__)
+
 
 api_key = 'WtsnqndaKo-ZexTA5Jr2'
 tools = "pan,wheel_zoom,reset,hover,save"
@@ -63,7 +60,7 @@ def graph():
         if request.form.get('Adj. Open'):
             p.line(x=df['Date'].values, y=df['Adj. Open'].values,line_width=2, line_color="purple", legend='Adj. Open')
         script, div = components(p)
-        return render_template('graph.html', script=script, div=div)
+        return render_template('plot.html', script=script, div=div)
 
 if __name__ == '__main__':
     app.run(port=33507)
