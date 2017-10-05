@@ -1,7 +1,7 @@
 import requests
 import pandas as pd
 import simplejson as json
-from bokeh.plotting import figure,show,vplot 
+from bokeh.plotting import figure,show #,vplot 
 from bokeh.palettes import Spectral11
 from bokeh.embed import components
 #from bokeh.layouts import row, column,gridplot
