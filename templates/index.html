@@ -7,6 +7,15 @@ function yesnoCheck() {
     else document.getElementById('ifYes').style.display = 'none';
 
 }
+    
+function yesnoCheck1() {
+    if (document.getElementById('yesDate').checked) {
+        document.getElementById('ifYesDate').style.display = 'block';
+    }
+    else document.getElementById('ifYesDate').style.display = 'none';
+
+}
+    
 </script>
 
 
@@ -25,13 +34,15 @@ function yesnoCheck() {
                     <b>Enter a ticker symbol (eg. AAPL):</b><br>
                     <input type="text" name="ticker1">
                     <br>
+                   
                     <p><b>Do you want to compare with another stock?</b></p> 
                     Yes <input type="radio" onclick="javascript:yesnoCheck();" name="2stocks" value = "YES" id="yesCheck"> 
                     No <input type="radio" onclick="javascript:yesnoCheck();" name="2stocks" value = "NO" id="noCheck" checked="checked"><br>
                     <div id="ifYes" style="display:none">
                     <b>Enter a second symbol if you want to compare (eg. GOOGL):</b><br>
                     <input type="text" name="ticker2">
-                    </div>                    
+                    </div>
+                    
                     
 				
 	  		    <p><b>What do you want to see?</b></p>
@@ -40,15 +51,14 @@ function yesnoCheck() {
 					<input type="checkbox" name='Open'>Opening price<br>
                     <input type="checkbox" name='Adjusted open'>Adjusted opening price<br>
                  
-                 <!-- 
+                  
                  <p><b>Custom Date range?</b></p> 
-                    Yes <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="yesCheck"> 
-                    No <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="noCheck" checked="checked"><br>
-                    <div id="ifYes" style="display:none">
-                    Start date: <input type="date", id = 'yes' name="start">
-                    End date: <input type="date", id = 'yes' name="End">
+                    Yes <input type="radio" onclick="javascript:yesnoCheck1();" name="yesno" value = "YES" id="yesDate"> 
+                    No <input type="radio" onclick="javascript:yesnoCheck1();" name="yesno" value = "NO" id="noDate" checked="checked"><br>
+                    <div id="ifYesDate" style="display:none">
+                    Start date: <input type="date",  name="start">
+                    End date: <input type="date",  name="end">
                     </div> 
-                  -->                   
                     <br>
                 <input type="submit" value="Submit">
                 
