@@ -30,6 +30,8 @@ def index():
 def plot(): 
     api_key = 'WtsnqndaKo-ZexTA5Jr2'
     tools = "pan,wheel_zoom,reset,hover,save"
+    
+    #Function which builds a data frame from input ticker
     def get_data(ticker):
         api_url = 'https://www.quandl.com/api/v1/datasets/WIKI/%s.json?api_key=%s' % (ticker, api_key)
         session = requests.Session()
@@ -40,11 +42,30 @@ def plot():
         df['Date'] = pd.to_datetime(df['Date'])
         return df
     
+    #From the first ticker get the data and put it in a datafram
     app.vars['ticker1'] = request.form['ticker1']
     df = get_data(app.vars['ticker1'])
+    
+    #Check to see if we have custom dates
+    if request.form['yesno'] == 'YES':
+        custom_dates = True
+        start_date = pd.to_datetime(request.form['start'])
+        end_date = pd.to_datetime(request.form['end'])
+        if start_date < df['Date'].iloc[-1]:
+            start_date = df['Date'].iloc[-1]
+        if end_date > df['Date'].iloc[0]:
+            end_date = df['Date'].iloc[0]
+        df = df[(df['Date'] >= start_date) & (df['Date'] <= end_date)]
+    else:
+        custom_dates = False
+    
+
+    
     if request.form['2stocks'] == "YES":
         app.vars['ticker2'] = request.form['ticker2']
         df2 = get_data(app.vars['ticker2'])
+        if custom_dates:
+            df2 = df2[(df2['Date'] >= start_date) & (df2['Date'] <= end_date)]
         
         s1 = figure(title='%s' % app.vars['ticker1'], plot_width = 420, plot_height = 220, tools = tools,
             x_axis_label='date',
@@ -115,7 +136,10 @@ if __name__ == '__main__':
     app.run(port=33507)
 
 
-# In[ ]:
+
+
+
+
 
 
 
