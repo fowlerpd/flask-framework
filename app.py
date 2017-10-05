@@ -1,9 +1,12 @@
 import requests
-import pandas
+import pandas as pd
 import simplejson as json
-from bokeh.plotting import figure
+from bokeh.plotting import figure,show,vplot 
 from bokeh.palettes import Spectral11
-from bokeh.embed import components 
+from bokeh.embed import components
+from bokeh.layouts import row, column,gridplot
+from bokeh.models import ColumnDataSource, HoverTool, Legend
+from bokeh.models.widgets import PreText, Select
 from flask import Flask,render_template,request,redirect,session
 
 app = Flask(__name__)
