@@ -1,13 +1,16 @@
 import requests
-import pandas
+import pandas as pd
 import simplejson as json
-from bokeh.plotting import figure
+from bokeh.plotting import figure,show,vplot 
 from bokeh.palettes import Spectral11
-from bokeh.embed import components 
+from bokeh.embed import components
+from bokeh.layouts import row, column,gridplot
+from bokeh.models import ColumnDataSource, HoverTool, Legend
+from bokeh.models.widgets import PreText, Select
 from flask import Flask,render_template,request,redirect,session
 
-app = Flask(__name__)
 
+app = Flask(__name__)
 
 api_key = 'WtsnqndaKo-ZexTA5Jr2'
 tools = "pan,wheel_zoom,reset,hover,save"
@@ -32,7 +35,7 @@ def main():
 def index():
     return render_template('index.html')
     
-@app.route('/graph', methods=['POST'])
+@app.route('/plot', methods=['POST'])
 def graph():
 #    if request.method == 'POST':
         app.vars['ticker'] = request.form['ticker']
