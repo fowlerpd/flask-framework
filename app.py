@@ -1,4 +1,3 @@
-
 import requests
 import pandas as pd
 import simplejson as json
@@ -10,21 +9,9 @@ from bokeh.models import ColumnDataSource, HoverTool, Legend
 from bokeh.models.widgets import PreText, Select
 from flask import Flask,render_template,request,redirect,session
 
-app = Flask(__name__)
 
-app.vars={}
-
-
-@app.route('/')
-def main():
-  return redirect('/index')
-
-@app.route('/index', methods=['GET'])
-def index():
-    return render_template('index.html')
-
-@app.route('/plot', methods=['POST'])
-
+api_key = 'WtsnqndaKo-ZexTA5Jr2'
+tools = "pan,wheel_zoom,reset,hover,save"
 def get_data(ticker):
     api_url = 'https://www.quandl.com/api/v1/datasets/WIKI/%s.json?api_key=%s' % (ticker, api_key)
     session = requests.Session()
@@ -35,9 +22,20 @@ def get_data(ticker):
     df['Date'] = pd.to_datetime(df['Date'])
     return df
 
-api_key = 'WtsnqndaKo-ZexTA5Jr2'
-tools = "pan,wheel_zoom,reset,hover,save"
 
+app = Flask(__name__)
+
+app.vars={}
+
+@app.route('/')
+def main():
+  return redirect('/index')
+
+@app.route('/index', methods=['GET'])
+def index():
+    return render_template('index.html')
+    
+@app.route('/plot', methods=['POST'])
 def make_plot():
     app.vars['ticker1'] = request.form['ticker1']
     df = get_data(app.vars['ticker1'])
@@ -120,7 +118,5 @@ def make_plot():
     
 if __name__ == '__main__':
     app.run(port=33507)
-
-
 
 
